@@ -15,8 +15,7 @@
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags",
-    "publish": "npm publish --access public"
+    "postversion": "git push && git push --tags"
   },
   "keywords": [
     "whitespace-remove",
