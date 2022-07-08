@@ -1,43 +1,76 @@
 {
   "name": "@garystorey/slugify",
   "version": "1.0.2",
-  "description": "Utility to remove whitepace from a string and replace it with a dash",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/**/*"
-  ],
-  "scripts": {
-    "build": "tsc",
-    "test": "jest --config jestconfig.json",
-    "format": "prettier --write \"src/**/*.ts\" ",
-    "lint": "eslint --fix \"./src/index.ts\"",
-    "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
-    "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+  "description": "A small utility to remove/replace whitepace from a string",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
   },
-  "keywords": [
-    "whitespace-remove",
-    "slug",
-    "slugify"
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "prepublishOnly": "rollup -c",
+    "build": "rollup -c",
+    "test": "vitest --watch",
+    "release": "bumpp --commit --push --tag",
+    "lint": "eslint --fix src",
+    "pretty": "npx prettier src --write --loglevel warn",
+    "push": "npm run ci-test && npm run ci-lint && npm run ci-pretty && npm run build",
+    "ci-lint": "eslint src --ext .ts,.tsx --fix --quiet",
+    "ci-pretty": "npx prettier src --write --loglevel error",
+    "ci-test": "cross-env CI=true vitest --run"
+  },
+  "files": [
+    "dist"
   ],
-  "author": "Gary Storey <garystorey655@gmail.com>",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garystorey/slugify.git"
+  },
   "bugs": {
     "url": "https://github.com/garystorey/slugify/issues"
   },
-  "homepage": "https://github.com/garystorey/slugify#readme",
+  "homepage": "https://github.com/garystorey/slugify#readme.md",
+  "keywords": [
+    "rollup",
+    "vitest",
+    "typescript",
+    "slugify",
+    "slug",
+    "whitespace-remove"
+  ],
+  "author": {
+    "name": "Gary Storey",
+    "email": "garystorey655@gmail.com",
+    "url": "https://garystorey.com/"
+  },
+  "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^26.0.23",
-    "@typescript-eslint/eslint-plugin": "^4.23.0",
-    "@typescript-eslint/parser": "^4.23.0",
-    "eslint": "^7.26.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
-    "jest": "^26.6.3",
-    "prettier": "^2.3.0",
-    "typescript": "^4.2.4",
-    "ts-jest": "^26.5.6"
+    "@rollup/plugin-commonjs": "^22.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@types/rollup": "^0.54.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "bumpp": "^8.2.1",
+    "conventional-github-releaser": "^3.1.5",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.14.48",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "prettier": "^2.7.1",
+    "prettier-plugin-organize-imports": "^3.0.0",
+    "rollup": "^2.76.0",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-esbuild": "^4.9.1",
+    "typescript": "^4.7.4",
+    "vitest": "^0.17.1"
   }
 }
